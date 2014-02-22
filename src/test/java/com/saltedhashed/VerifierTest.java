@@ -9,6 +9,9 @@ import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.lambdaworks.crypto.SCryptUtil;
+import com.saltedhashed.model.Algorithm;
+import com.saltedhashed.model.AlgorithmDetails;
+import com.saltedhashed.model.PasswordResponse;
 
 public class VerifierTest {
 

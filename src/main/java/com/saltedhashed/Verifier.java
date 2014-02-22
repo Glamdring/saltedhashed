@@ -9,6 +9,8 @@ import org.apache.commons.codec.binary.Base64;
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.lambdaworks.crypto.SCryptUtil;
+import com.saltedhashed.model.Algorithm;
+import com.saltedhashed.model.PasswordResponse;
 
 public class Verifier {
 

@@ -15,6 +15,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.saltedhashed.dao.PageableOperation;
 import com.saltedhashed.dao.SiteDao;
+import com.saltedhashed.model.PasswordResponse;
+import com.saltedhashed.model.Site;
+import com.saltedhashed.model.SiteStatus;
 
 @Component
 public class SiteVerifierJob {

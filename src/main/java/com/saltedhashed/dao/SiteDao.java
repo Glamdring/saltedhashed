@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
-import com.saltedhashed.Site;
+import com.saltedhashed.model.Site;
 
 @Repository
 public class SiteDao {

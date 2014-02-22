@@ -1,4 +1,4 @@
-package com.saltedhashed;
+package com.saltedhashed.model;
 
 public class AlgorithmDetails {
 
