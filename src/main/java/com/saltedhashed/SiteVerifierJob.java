@@ -3,13 +3,20 @@ package com.saltedhashed;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTimeConstants;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.saltedhashed.dao.SiteDao;
+
 @Component
 public class SiteVerifierJob {
+
+    @Inject
+    private SiteDao dao;
 
     private RestTemplate restTemplate = new RestTemplate();
 

@@ -24,9 +24,10 @@ public class Verifier {
 
         if (response.getAlgorithm() == Algorithm.PBKDF2) {
             byte[] hash = Base64.decodeBase64(response.getHash());
-            PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), response.getSalt().getBytes(), response.getIterations(), hash.length * 8);
+            PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), response.getSalt().getBytes(), response
+                    .getAlgorithmDetails().getIterations(), response.getAlgorithmDetails().getKeySize());
             try {
-                SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+                SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmac" + response.getAlgorithmDetails().getHashFunction().replace("-", ""));
                 byte[] expectedHash = skf.generateSecret(spec).getEncoded();
                 return Arrays.equals(hash, expectedHash);
             } catch (Exception e) {

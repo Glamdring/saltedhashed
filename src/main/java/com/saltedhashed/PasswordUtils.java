@@ -3,6 +3,8 @@ package com.saltedhashed;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class PasswordUtils {
 
     private static char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()".toCharArray();
@@ -15,5 +17,9 @@ public class PasswordUtils {
             sb.append(c);
         }
         return sb.toString();
+    }
+
+    public static String getRandomSalt() {
+        return BCrypt.gensalt(10);
     }
 }
