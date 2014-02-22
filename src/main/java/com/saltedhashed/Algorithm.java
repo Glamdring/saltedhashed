@@ -1,5 +1,5 @@
 package com.saltedhashed;
 
 public enum Algorithm {
-    BCRYPT, PBKDF2, SCRYPT, SHA512
+    BCRYPT, PBKDF2, SCRYPT
 }

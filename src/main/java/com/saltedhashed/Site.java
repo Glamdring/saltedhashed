@@ -1,11 +1,12 @@
 package com.saltedhashed;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Site {
     private String baseUrl;
     private String endpointPath;
-    private List<String> statuses;
+    private List<SiteStatus> statuses = new ArrayList<>();
 
     public String getBaseUrl() {
         return baseUrl;
@@ -23,12 +24,11 @@ public class Site {
         this.endpointPath = endpointPath;
     }
 
-    public List<String> getStatuses() {
+    public List<SiteStatus> getStatuses() {
         return statuses;
     }
 
-    public void setStatuses(List<String> statuses) {
+    public void setStatuses(List<SiteStatus> statuses) {
         this.statuses = statuses;
     }
-
 }

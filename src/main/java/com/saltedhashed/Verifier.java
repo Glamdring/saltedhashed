@@ -1,6 +1,5 @@
 package com.saltedhashed;
 
-import java.security.MessageDigest;
 import java.util.Arrays;
 
 import javax.crypto.SecretKeyFactory;
@@ -30,16 +29,6 @@ public class Verifier {
                 SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmac" + response.getAlgorithmDetails().getHashFunction().replace("-", ""));
                 byte[] expectedHash = skf.generateSecret(spec).getEncoded();
                 return Arrays.equals(hash, expectedHash);
-            } catch (Exception e) {
-                throw new IllegalStateException(e);
-            }
-        }
-
-        if (response.getAlgorithm() == Algorithm.SHA512) {
-            try {
-                MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                byte[] expectedHash = digest.digest((password + response.getSalt()).getBytes("UTF-8"));
-                return Arrays.equals(Base64.decodeBase64(response.getHash()), expectedHash);
             } catch (Exception e) {
                 throw new IllegalStateException(e);
             }
