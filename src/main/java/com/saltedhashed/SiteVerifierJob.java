@@ -40,53 +40,61 @@ public class SiteVerifierJob {
     @Scheduled(fixedDelay=DateTimeConstants.MILLIS_PER_DAY)
     public void run() {
 
-        final List<String> passwords = new ArrayList<>(3);
-        for (int i = 0; i < 3; i ++) {
-            passwords.add(PasswordUtils.getRandomPassword());
-        }
+        final List<String> passwords = generateTestPasswords();
 
         dao.performBatched(200, new PageableOperation<Site>() {
             @Override
             public void execute() {
                 List<Site> sites = getData();
-
                 for (Site site : sites) {
-                    SiteStatus status = new SiteStatus();
-                    status.setHttpCode(200);
-                    Set<String> messages = new HashSet<>();
-                    boolean success = true;
-                    for (String password : passwords) {
-                        try {
-                            PasswordResponse response =
-                                    restTemplate.postForObject(site.getBaseUrl() + site.getEndpointPath(), password, PasswordResponse.class);
-                            boolean verificationResult = verifier.verify(password, response);
-                            if (!verificationResult) {
-                                messages.add("Incorrect hash for password " + password + ", using algorithm " + response.getAlgorithm() + ".");
-                            }
-                            success = success && verificationResult;
-                        } catch (HttpClientErrorException ex) {
-                            success = false;
-                            status.setHttpCode(ex.getStatusCode().value());
-                            messages.add(ex.getStatusText());
-                        } catch (RestClientException ex) {
-                            success = false;
-                            messages.add("REST exception: " + ex.getMessage());
-                            logger.warn("Problem with site: " + site, ex);
-                        } catch (Exception ex) {
-                            success = false;
-                            messages.add("Unexpected problem.");
-                            logger.warn("Problem with site: " + site, ex);
-                        }
-                    }
-                    status.setSuccess(success);
-                    status.setMessage(joiner.join(messages));
-                    site.getStatuses().add(0, status);
-                    if (site.getStatuses().size() > 5) {
-                        site.getStatuses().remove(5);
-                    }
-                    dao.save(site);
+                    verifySite(passwords, site);
                 }
             }
         });
+    }
+
+    public List<String> generateTestPasswords() {
+        final List<String> passwords = new ArrayList<>(3);
+        for (int i = 0; i < 3; i ++) {
+            passwords.add(PasswordUtils.getRandomPassword());
+        }
+        return passwords;
+    }
+
+    public void verifySite(final List<String> passwords, Site site) {
+        SiteStatus status = new SiteStatus();
+        status.setHttpCode(200);
+        Set<String> messages = new HashSet<>();
+        boolean success = true;
+        for (String password : passwords) {
+            try {
+                PasswordResponse response =
+                        restTemplate.postForObject(site.getBaseUrl() + site.getEndpointPath(), password, PasswordResponse.class);
+                boolean verificationResult = verifier.verify(password, response);
+                if (!verificationResult) {
+                    messages.add("Incorrect hash for password " + password + ", using algorithm " + response.getAlgorithm() + ".");
+                }
+                success = success && verificationResult;
+            } catch (HttpClientErrorException ex) {
+                success = false;
+                status.setHttpCode(ex.getStatusCode().value());
+                messages.add(ex.getStatusText());
+            } catch (RestClientException ex) {
+                success = false;
+                messages.add("REST exception: " + ex.getMessage());
+                logger.warn("Problem with site: " + site, ex);
+            } catch (Exception ex) {
+                success = false;
+                messages.add("Unexpected problem.");
+                logger.warn("Problem with site: " + site, ex);
+            }
+        }
+        status.setSuccess(success);
+        status.setMessage(joiner.join(messages));
+        site.getStatuses().add(0, status);
+        if (site.getStatuses().size() > 5) {
+            site.getStatuses().remove(5);
+        }
+        dao.save(site);
     }
 }

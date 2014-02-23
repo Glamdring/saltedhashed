@@ -22,7 +22,7 @@
 <meta name="author" content="">
 <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-<title>SaltedHahshed - prove that your sites store passwords properly</title>
+<title>SaltedHahshed - prove that your sites store passwords securely</title>
 
 <script type="text/javascript" src="${staticRoot}/scripts/jquery-1.10.2.min.js"></script>
 <link rel="stylesheet" href="${staticRoot}/styles/main.css">

@@ -17,7 +17,7 @@
         </script>
 
         <div class="jumbotron">
-            <h1>Prove to your users that you store passwords properly</h1>
+            <h1>Prove to your users that you store passwords securely</h1>
             <p class="lead">Storing passwords properly is something not all
             websites are doing. Every now and then we read about leaked password
             and it turns out even big companies are doing it wrong. Do you want

@@ -1,26 +1,37 @@
 package com.saltedhashed.web;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.saltedhashed.SiteVerifierJob;
 import com.saltedhashed.dao.SiteDao;
 import com.saltedhashed.model.Site;
 
 @Controller
-public class MainController {
+public class SiteController {
 
     @Inject
     private SiteDao dao;
 
     @Inject
     private UserContext userContext;
+
+    @Inject
+    private SiteVerifierJob verifierJob;
+
+    @Inject
+    private ServletContext servletContext;
 
     @RequestMapping("/")
     public String index() {
@@ -48,6 +59,11 @@ public class MainController {
         if (existing != null && !existing.getOwner().equals(userContext.getUser().getEmail())) {
             throw new IllegalStateException("Cannot edit site that is not owned by the user");
         }
+        // if this is a new site, immediately run the verification process
+        if (existing == null) {
+            verifierJob.verifySite(verifierJob.generateTestPasswords(), site);
+        }
+
         site.setOwner(userContext.getUser().getEmail());
         dao.save(site);
         return "redirect:/sites";
@@ -62,6 +78,7 @@ public class MainController {
         dao.delete(site);
         return "redirect:/sites";
     }
+
     @RequestMapping("/sites")
     public String sites(Model model) {
         if (userContext.getUser() == null) {
@@ -69,5 +86,27 @@ public class MainController {
         }
         model.addAttribute("sites", dao.getSitesForUser(userContext.getUser().getEmail()));
         return "sites";
+    }
+
+    @RequestMapping("/site/badge")
+    public void getBatch(@RequestParam String baseUrl, HttpServletResponse response) throws IOException {
+        response.setContentType("image/png");
+        Site site = dao.find(baseUrl);
+        if (site == null || site.getStatuses().isEmpty()) {
+            return;
+        }
+
+        IOUtils.copy(servletContext.getResourceAsStream("/img/badge.png"), response.getOutputStream());
+    }
+
+    @RequestMapping("/site/status")
+    public String getSiteStatus(@RequestParam String baseUrl, Model model) {
+        Site site = dao.find(baseUrl);
+        if (site == null || site.getStatuses().isEmpty()) {
+            model.addAttribute("noData", true);
+        } else {
+            model.addAttribute("success", site.getStatuses().get(0).isSuccess());
+        }
+        return "status";
     }
 }
