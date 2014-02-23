@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.saltedhashed.dao.SiteDao;
 import com.saltedhashed.model.Site;
@@ -52,6 +53,15 @@ public class MainController {
         return "redirect:/sites";
     }
 
+    @RequestMapping("/site/delete")
+    public String delete(@RequestParam String baseUrl) {
+        Site site = dao.find(baseUrl);
+        if (!site.getOwner().equals(userContext.getUser().getEmail())) {
+            throw new IllegalStateException("Cannot delete site that is not owned by the user");
+        }
+        dao.delete(site);
+        return "redirect:/sites";
+    }
     @RequestMapping("/sites")
     public String sites(Model model) {
         if (userContext.getUser() == null) {

@@ -51,7 +51,7 @@
                     <tr>
                         <td>${site.baseUrl}</td>
                         <td>${site.endpointPath}</td>
-                        <td>${site.statuses.isEmpty() ? "" : site.statuses.get(0).success ? '<span class"success">OK</span>' : '<span class="failure">' + site.statuses.get(0).message + '</span>'}</td>
+                        <td>${site.statuses.isEmpty() ? "" : site.statuses.get(0).success ? '<span class"success">OK</span>' : site.statuses.get(0).message}</td>
                         <td><a href="javascript:edit('${site.baseUrl}', '${site.endpointPath}');">Edit</a></td>
                     </tr>
                 </c:forEach>

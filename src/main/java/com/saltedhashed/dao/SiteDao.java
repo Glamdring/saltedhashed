@@ -51,7 +51,7 @@ public class SiteDao {
             mongo.executeQuery(query, "site", new DocumentCallbackHandler() {
                 @Override
                 public void processDocument(DBObject dbObject) throws MongoException, DataAccessException {
-                    mongo.getConverter().read(Site.class, dbObject);
+                    data.add(mongo.getConverter().read(Site.class, dbObject));
                 }
             });
             page++;
@@ -62,5 +62,9 @@ public class SiteDao {
                 break;
             }
         }
+    }
+
+    public void delete(Site site) {
+        mongo.remove(site);
     }
 }
