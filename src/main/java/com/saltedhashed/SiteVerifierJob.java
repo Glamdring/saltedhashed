@@ -69,7 +69,7 @@ public class SiteVerifierJob {
         for (String password : passwords) {
             try {
                 PasswordResponse response =
-                        restTemplate.postForObject(site.getBaseUrl() + site.getEndpointPath(), password, PasswordResponse.class);
+                        restTemplate.postForObject(site.getBaseUrl() + site.getEndpointPath(), "{password:\"" + password +"\"}", PasswordResponse.class);
                 boolean verificationResult = verifier.verify(password, response);
                 if (!verificationResult) {
                     messages.add("Incorrect hash for password " + password + ", using algorithm " + response.getAlgorithm() + ".");

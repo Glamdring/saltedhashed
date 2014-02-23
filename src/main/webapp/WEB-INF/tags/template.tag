@@ -88,7 +88,7 @@
 
     <div class="container">
 
-        <div class="masthead">
+        <div class="masthead" style="margin-bottom: 25px;">
             <h3 class="text-muted">SaltedHashed</h3>
             <ul class="nav nav-justified">
                 <li class="active"><a href="${root}">Home</a></li>
@@ -98,7 +98,7 @@
                 <c:if test="${userLoggedIn}">
                     <li><a href="sites">My websites</a></li>
                 </c:if>
-                <li><a href="#">Docs</a></li>
+                <li><a href="docs">Docs</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
         </div>
