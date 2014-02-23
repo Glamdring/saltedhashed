@@ -1,6 +1,7 @@
 package com.saltedhashed.model;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 
@@ -8,9 +9,7 @@ public class User {
 
     @Id
     private String email;
-
-    private List<String> sites;
-
+    private Set<String> sites = new HashSet<>();
     private long registrationTimestamp;
 
     public String getEmail() {
@@ -21,11 +20,11 @@ public class User {
         this.email = email;
     }
 
-    public List<String> getSites() {
+    public Set<String> getSites() {
         return sites;
     }
 
-    public void setSites(List<String> sites) {
+    public void setSites(Set<String> sites) {
         this.sites = sites;
     }
 

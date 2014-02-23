@@ -1,5 +1,8 @@
 package com.saltedhashed.web;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,20 @@ public class MainController {
 
     @RequestMapping("/site/save")
     public String save(Site site) {
+        try {
+            URL url = new URL(site.getBaseUrl());
+            String baseUrl = url.toExternalForm();
+            String path = url.getPath();
+            if (!path.isEmpty()) {
+                // replace last
+                StringBuilder b = new StringBuilder(baseUrl);
+                b.replace(baseUrl.lastIndexOf(path), baseUrl.lastIndexOf(path) + 1, "");
+                baseUrl = b.toString();
+            }
+            site.setBaseUrl(baseUrl);
+        } catch (MalformedURLException e) {
+            return "redirect:/sites?message=Malformed base URL";
+        }
         Site existing = dao.find(site.getBaseUrl());
         if (existing != null && !existing.getOwner().equals(userContext.getUser().getEmail())) {
             throw new IllegalStateException("Cannot edit site that is not owned by the user");

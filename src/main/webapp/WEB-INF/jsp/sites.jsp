@@ -8,7 +8,14 @@
 
         <script type="text/javascript">
             function openSiteDialog() {
+                $("#baseUrlInput").removeAttr("readonly");
                 $("#siteForm").dialog();
+            }
+            function edit(baseUrl, endpointPath) {
+                $("#siteForm").dialog();
+                $("#baseUrlInput").val(baseUrl);
+                $("#baseUrlInput").attr("readonly", "readonly");
+                $("#endpointPathInput").val(endpointPath);
             }
         </script>
     </jsp:attribute>
@@ -18,11 +25,11 @@
         <div style="display: none;" id="siteForm">
             <form action="${root}/site/save" method="POST">
                 <div class="form-row"><label>Base URL (e.g. http://yoursite.com)</label>
-                <input type="text" name="baseUrl" />
+                <input type="text" name="baseUrl" id="baseUrlInput" />
                 </div>
 
                 <div class="form-row"><label>Endpoint path (e.g. /api/verify-passwords)</label>
-                <input type="text" name="endpointPath" />
+                <input type="text" name="endpointPath" id="endpointPathInput" />
                 </div>
 
                 <div class="form-row">
@@ -45,7 +52,7 @@
                         <td>${site.baseUrl}</td>
                         <td>${site.endpointPath}</td>
                         <td>${site.statuses.isEmpty() ? "" : site.statuses.get(0).success ? '<span class"success">OK</span>' : '<span class="failure">' + site.statuses.get(0).message + '</span>'}</td>
-                        <td><a href="edit?baseUrl=${site.baseUrl}">Edit</a></td>
+                        <td><a href="javascript:edit('${site.baseUrl}', '${site.endpointPath}');">Edit</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

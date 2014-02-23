@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 import com.saltedhashed.model.Site;
+import com.saltedhashed.model.User;
 
 @Repository
 public class SiteDao {
@@ -26,6 +27,10 @@ public class SiteDao {
 
     public void save(Site site) {
         mongo.save(site);
+        User user = mongo.findById(site.getOwner(), User.class);
+        if (user.getSites().add(site.getBaseUrl())) {
+            mongo.save(user);
+        }
     }
 
     public Site find(String baseUrl) {
@@ -33,7 +38,8 @@ public class SiteDao {
     }
 
     public List<Site> getSitesForUser(String email) {
-        return mongo.find(Query.query(Criteria.where("owner").is(email)), Site.class);
+        User user = mongo.findById(email, User.class);
+        return mongo.find(Query.query(Criteria.where("baseUrl").in(user.getSites())), Site.class);
     }
 
     public void performBatched(int pageSize, PageableOperation<Site> operation) {
