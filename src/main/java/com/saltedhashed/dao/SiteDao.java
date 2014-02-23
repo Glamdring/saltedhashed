@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.DocumentCallbackHandler;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +26,14 @@ public class SiteDao {
 
     public void save(Site site) {
         mongo.save(site);
+    }
+
+    public Site find(String baseUrl) {
+        return mongo.findById(baseUrl, Site.class);
+    }
+
+    public List<Site> getSitesForUser(String email) {
+        return mongo.find(Query.query(Criteria.where("owner").is(email)), Site.class);
     }
 
     public void performBatched(int pageSize, PageableOperation<Site> operation) {

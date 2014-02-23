@@ -1,14 +1,16 @@
 <%@tag description="Main template" pageEncoding="UTF-8"%>
+<%@attribute name="header" fragment="true" %>
+
 <%@ include file="../jsp/includes.jsp" %>
-<c:set value="${pageContext.request.contextPath}/static" var="staticRoot" />
-<c:set value="${pageContext.request.contextPath}" var="root" />
+<c:set value="${pageContext.request.contextPath}/static" var="staticRoot" scope="request" />
+<c:set value="${pageContext.request.contextPath}" var="root" scope="request" />
 
 <c:if test="${root == '//'}">
-    <c:set value="" var="root" />
-    <c:set value="/static" var="staticRoot" />
+    <c:set value="" var="root" scope="request" />
+    <c:set value="/static" var="staticRoot" scope="request" />
 </c:if>
 
-<c:set var="userLoggedIn" value="${userContext.user != null}" />
+<c:set var="userLoggedIn" value="${userContext.user != null}" scope="request" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +25,7 @@
 <title>SaltedHahshed - prove that your sites store passwords properly</title>
 
 <script type="text/javascript" src="${staticRoot}/scripts/jquery-1.10.2.min.js"></script>
-
+<link rel="stylesheet" href="${staticRoot}/styles/main.css">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
     href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -77,6 +79,9 @@
      });
  </script>
 </c:if>
+
+<jsp:invoke fragment="header"/>
+
 </head>
 
 <body>
@@ -87,7 +92,13 @@
             <h3 class="text-muted">SaltedHashed</h3>
             <ul class="nav nav-justified">
                 <li class="active"><a href="${root}">Home</a></li>
-                <li><a href="javascript:void(0);" id="personaSignin">Sign in</a></li>
+                <c:if test="${!userLoggedIn}">
+                    <li><a href="javascript:void(0);" id="personaSignin">Sign in</a></li>
+                </c:if>
+                <c:if test="${userLoggedIn}">
+                    <li><a href="sites">My websites</a></li>
+                </c:if>
+                <li><a href="#">Docs</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
         </div>

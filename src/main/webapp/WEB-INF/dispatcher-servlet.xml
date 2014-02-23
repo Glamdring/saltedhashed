@@ -32,6 +32,9 @@
         class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
 
     <mvc:annotation-driven />
+    <mvc:interceptors>
+        <ref bean="userContextSettingInterceptor"/>
+    </mvc:interceptors>
 
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
         p:order="0" />

@@ -9,6 +9,7 @@ public class Site {
     @Id
     private String baseUrl;
     private String endpointPath;
+    private String owner;
     private List<SiteStatus> statuses = new ArrayList<>();
 
     public String getBaseUrl() {
@@ -33,5 +34,13 @@ public class Site {
 
     public void setStatuses(List<SiteStatus> statuses) {
         this.statuses = statuses;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }
