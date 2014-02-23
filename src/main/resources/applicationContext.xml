@@ -20,7 +20,7 @@
     </context:component-scan>
 
     <context:property-placeholder
-        location="file:${config.location}/application.properties" />
+        location="file:${saltedhashed.config.location}/application.properties" />
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />

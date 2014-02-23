@@ -24,7 +24,7 @@ public class SiteDao {
     private MongoTemplate mongo;
 
     public void save(Site site) {
-        mongo.insert(site);
+        mongo.save(site);
     }
 
     public void performBatched(int pageSize, PageableOperation<Site> operation) {

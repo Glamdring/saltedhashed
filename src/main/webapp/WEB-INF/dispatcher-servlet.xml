@@ -15,7 +15,7 @@
     <context:component-scan base-package="com.saltedhashed.web" />
 
     <context:property-placeholder
-        location="file:${config.location}/application.properties" />
+        location="file:${saltedhashed.config.location}/application.properties" />
 
     <!-- mapping images, js and styles with separate mappings. Otherwise it conflicts with ResourceController mapping. -->
     <mvc:resources mapping="/static/img/**" location="/img/" cache-period="0" />

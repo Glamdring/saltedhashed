@@ -50,7 +50,7 @@ public class VerifierTest {
         response.setSalt(salt);
         response.setAlgorithmDetails(new AlgorithmDetails());
         response.getAlgorithmDetails().setIterations(100);
-        response.getAlgorithmDetails().setHashFunction("SHA512");
+        response.getAlgorithmDetails().setHashFunction("SHA1");
         response.getAlgorithmDetails().setKeySize(password.getBytes().length * 8);
         PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 100, response.getAlgorithmDetails().getKeySize());
         SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmac" + response.getAlgorithmDetails().getHashFunction().replace("-", ""));
