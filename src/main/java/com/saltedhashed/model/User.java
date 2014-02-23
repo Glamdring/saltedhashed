@@ -11,6 +11,8 @@ public class User {
 
     private List<String> sites;
 
+    private long registrationTimestamp;
+
     public String getEmail() {
         return email;
     }
@@ -25,5 +27,13 @@ public class User {
 
     public void setSites(List<String> sites) {
         this.sites = sites;
+    }
+
+    public long getRegistrationTimestamp() {
+        return registrationTimestamp;
+    }
+
+    public void setRegistrationTimestamp(long registrationTimestamp) {
+        this.registrationTimestamp = registrationTimestamp;
     }
 }

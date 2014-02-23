@@ -22,10 +22,6 @@
     <context:property-placeholder
         location="file:${saltedhashed.config.location}/application.properties" />
 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
-    </bean>
-
     <bean id="s3Service" class="org.jets3t.service.impl.rest.httpclient.RestS3Service">
         <constructor-arg>
             <bean class="org.jets3t.service.security.AWSCredentials">

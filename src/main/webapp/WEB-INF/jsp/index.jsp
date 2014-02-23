@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ include file="includes.jsp" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:template>
@@ -10,7 +11,7 @@
                 var signinLink = $("#personaSignup");
                 signinLink.click(function() {
                     userRequestedAuthentication = true;
-                    navigator.id.request({siteName: 'Computoser'});
+                    navigator.id.request({siteName: 'SaltedHashed'});
                 });
             });
         </script>
@@ -23,7 +24,7 @@
             to prove to your users that you are storing their passwords
             correctly?</p>
             <p>
-              <a class="btn btn-lg btn-success" href="#" id="personaSignup" role="button">Register and get your site verified</a>
+              <a class="btn btn-lg btn-success" href="javascript:void(0);" id="personaSignup" role="button">Register and get your site verified</a>
             </p>
         </div>
     </c:if>

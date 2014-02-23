@@ -26,9 +26,7 @@
 
     <!-- setting all desired beans that are otherwise automaticaly defined by
         mvc:annotation-driven -->
-    <!-- JSR-303 support will be detected on classpath and enabled automatically -->
-    <bean id="validator"
-        class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
     <!-- Conversion -->
     <bean id="conversionService"
         class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />

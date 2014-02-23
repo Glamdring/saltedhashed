@@ -1,12 +1,5 @@
 <%@tag description="Main template" pageEncoding="UTF-8"%>
-
-<%@ page pageEncoding="UTF-8" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ include file="../jsp/includes.jsp" %>
 <c:set value="${pageContext.request.contextPath}/static" var="staticRoot" />
 <c:set value="${pageContext.request.contextPath}" var="root" />
 
@@ -29,6 +22,8 @@
 
 <title>SaltedHahshed - prove that your sites store passwords properly</title>
 
+<script type="text/javascript" src="${staticRoot}/scripts/jquery-1.10.2.min.js"></script>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
     href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -40,6 +35,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <script
     src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://login.persona.org/include.js"></script>
 
 <script type="text/javascript">
     var loggedInUser = '${userContext.user != null ? userContext.user.email : null}';
@@ -95,6 +92,9 @@
             </ul>
         </div>
 
+        <c:if test="${!empty param.message}">
+            <div style="color: green; text-align: center; font-size: 15pt;">${param.message}</div>
+        </c:if>
 
 <jsp:doBody />
 

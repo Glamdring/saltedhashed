@@ -270,5 +270,10 @@
             <artifactId>spring-data-mongodb</artifactId>
             <version>1.3.4.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.2.0.Final</version>
+        </dependency>
     </dependencies>
 </project>

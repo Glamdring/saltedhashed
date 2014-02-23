@@ -2,6 +2,7 @@ package com.saltedhashed.dao;
 
 import javax.inject.Inject;
 
+import org.joda.time.DateTime;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,5 +20,13 @@ public class UserDao {
 
     public void save(User user) {
         mongo.save(user);
+    }
+
+    public User completeUserRegistration(String email) {
+        User user = new User();
+        user.setEmail(email);
+        user.setRegistrationTimestamp(new DateTime().getMillis());
+        save(user);
+        return user;
     }
 }
