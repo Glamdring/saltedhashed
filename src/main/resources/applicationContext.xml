@@ -36,11 +36,15 @@
 
 
     <mongo:mongo host="${mongo.host}" port="${mongo.port}">
+        <mongo:options />
     </mongo:mongo>
     <mongo:db-factory id="mongoFactory" dbname="${mongo.database}" username="${mongo.username}"
         password="${mongo.password}" />
 
     <bean class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg ref="mongoFactory" />
+        <property name="writeConcern">
+            <util:constant static-field="com.mongodb.WriteConcern.ACKNOWLEDGED" />
+        </property>
     </bean>
 </beans>
