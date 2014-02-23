@@ -13,7 +13,8 @@ body {
 .jumbotron {
   text-align: center;
   background-color: transparent;
-  margin-top: 20px;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
 }
 .jumbotron .btn {
   padding: 14px 24px;
@@ -86,4 +87,12 @@ body {
     padding-right: 0;
     padding-left: 0;
   }
+}
+
+.success {
+    color: darkgreen;
+}
+.failure {
+    color: darkred;
+}
 }

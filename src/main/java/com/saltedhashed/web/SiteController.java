@@ -41,8 +41,10 @@ public class SiteController {
     public String docs() {
         return "docs";
     }
-
-//checksum of the site to be the same as latest build in github
+    @RequestMapping("/about")
+    public String about() {
+        return "about";
+    }
 
     @RequestMapping("/site/save")
     public String save(Site site) {

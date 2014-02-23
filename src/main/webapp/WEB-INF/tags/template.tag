@@ -26,17 +26,12 @@
 
 <script type="text/javascript" src="${staticRoot}/scripts/jquery-1.10.2.min.js"></script>
 <link rel="stylesheet" href="${staticRoot}/styles/main.css">
+
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-    href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-<link rel="stylesheet"
-    href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script
-    src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 
 <script type="text/javascript" src="https://login.persona.org/include.js"></script>
 
@@ -91,15 +86,19 @@
         <div class="masthead" style="margin-bottom: 25px;">
             <h3 class="text-muted">SaltedHashed</h3>
             <ul class="nav nav-justified">
-                <li class="active"><a href="${root}">Home</a></li>
+                <li<c:if test="${currentPage == 'home'}"> class="active"</c:if>><a href="${root}">Home</a></li>
+                <c:if test="${userLoggedIn}">
+                    <li<c:if test="${currentPage == 'sites'}"> class="active"</c:if>><a href="sites">My sites</a></li>
+                </c:if>
+                <li<c:if test="${currentPage == 'docs'}"> class="active"</c:if>><a href="docs">Docs</a></li>
+                <li<c:if test="${currentPage == 'about'}"> class="active"</c:if>><a href="about">About</a></li>
+
                 <c:if test="${!userLoggedIn}">
                     <li><a href="javascript:void(0);" id="personaSignin">Sign in</a></li>
                 </c:if>
                 <c:if test="${userLoggedIn}">
-                    <li><a href="sites">My websites</a></li>
+                    <li><a href="logout">Logout</a></li>
                 </c:if>
-                <li><a href="docs">Docs</a></li>
-                <li><a href="#">Contact</a></li>
             </ul>
         </div>
 
@@ -111,15 +110,15 @@
 
         <!-- Site footer -->
         <div class="footer">
-            <p>&copy; Company 2014</p>
+            <p></p>
         </div>
 
     </div>
     <!-- /container -->
 
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>
 </html>

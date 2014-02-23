@@ -2,9 +2,15 @@
 <%@ include file="includes.jsp" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
+<c:set var="currentPage" value="home" scope="request" />
 <t:template>
-    <!-- Jumbotron -->
+    <jsp:attribute name="header">
+        <c:if test="${userLoggedIn}">
+            <%@ include file="sites-header.jsp" %>
+        </c:if>
+    </jsp:attribute>
 
+    <jsp:body>
     <c:if test="${!userLoggedIn}">
         <script type="text/javascript">
             $(document).ready(function() {
@@ -17,7 +23,7 @@
         </script>
 
         <div class="jumbotron">
-            <h1>Prove to your users that you store passwords securely</h1>
+            <h2>Prove to your users that you store passwords securely</h2>
             <p class="lead">Storing passwords properly is something not all
             websites are doing. Every now and then we read about leaked password
             and it turns out even big companies are doing it wrong. Do you want
@@ -28,7 +34,11 @@
             </p>
         </div>
     </c:if>
+    <c:if test="${userLoggedIn}">
+            <%@ include file="sites-body.jsp" %>
+    </c:if>
 
+        <%@ include file="docs-include.jsp" %>
         <!-- Example row of columns -->
         <div class="row">
             <div class="col-lg-4">
@@ -68,4 +78,5 @@
                 </p>
             </div>
         </div>
+    </jsp:body>
 </t:template>
