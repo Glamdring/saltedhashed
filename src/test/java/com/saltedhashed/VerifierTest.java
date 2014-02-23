@@ -1,5 +1,7 @@
 package com.saltedhashed;
 
+import gnu.crypto.Registry;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
@@ -9,6 +11,7 @@ import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.lambdaworks.crypto.SCryptUtil;
+import com.saltedhashed.crypto.PBKDF2Algorithms;
 import com.saltedhashed.model.Algorithm;
 import com.saltedhashed.model.AlgorithmDetails;
 import com.saltedhashed.model.PasswordResponse;
@@ -53,7 +56,7 @@ public class VerifierTest {
         response.getAlgorithmDetails().setHashFunction("SHA1");
         response.getAlgorithmDetails().setKeySize(password.getBytes().length * 8);
         PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 100, response.getAlgorithmDetails().getKeySize());
-        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmac" + response.getAlgorithmDetails().getHashFunction().replace("-", ""));
+        SecretKeyFactory skf = PBKDF2Algorithms.getSecretKeyFactory("PBKDF2WithHmac" + response.getAlgorithmDetails().getHashFunction().replace("-", ""));
         byte[] hash = skf.generateSecret(spec).getEncoded();
         response.setHash(Base64.encodeBase64String(hash));
 

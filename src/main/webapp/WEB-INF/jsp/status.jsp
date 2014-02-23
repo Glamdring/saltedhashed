@@ -23,9 +23,10 @@
             that), and one of the sites is vulnerable, then the attacker has your
             credentials for all other sites.</p>
         <p>
-            Every site can be insecure, even big ones, like Adobe, Yahoo, Gawker
-            and LinkedIn. You can check if your password has leaked from big
-            sites <a href="https://haveibeenpwned.com/">here</a>.
+            Every site can be insecure, even big ones, like Adobe, Yahoo, Gawker,
+            LinkedIn and <a href="https://haveibeenpwned.com/PwnedWebsites">many
+                more</a>. You can check if your password has leaked from big sites <a
+                href="https://haveibeenpwned.com/">here</a>.
         </p>
     </div>
 </t:template>

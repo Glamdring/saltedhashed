@@ -24,7 +24,7 @@
     hash: "$2a$10$rBV2JDeWW3.vKyeQcM8fFO4777l4bVeQgDL6VIkxqlzQ7TCa", // the hash that you store in the database. If it's binary, use BASE64 to encode it.
     salt: "vKyeQcM8fFO4777l4bVe", // (optional, used only for PBKDF2) the salt used, if it's not included in the hash. If it's binary, use BASE64 to encode it.
     algorithmDetails: { // (optional, used only for PBKDF2) contains additional information about the algorithm.
-        hashFunction: "SHA-256", // the hash function used with the algorithm. One of SHA1, SHA-256, SHA-512.
+        hashFunction: "SHA-256", // the hash function used with the algorithm. One of SHA1, SHA-224, SHA-256, SHA-384, SHA-512.
         iterations: 10, // the number of iterations used.
         keySize: 48 // the key size.
     }
