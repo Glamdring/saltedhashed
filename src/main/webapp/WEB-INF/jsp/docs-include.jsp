@@ -30,5 +30,11 @@
     }
 }</pre></code>
             </p>
-            </div>
-        </div>
+
+        <p>
+            Why do you need to implement one of these algorithms? <a
+                href="http://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/6415#6415">See
+                here</a>.
+        </p>
+    </div>
+</div>

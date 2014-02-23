@@ -86,18 +86,18 @@
         <div class="masthead" style="margin-bottom: 25px;">
             <h3 class="text-muted">SaltedHashed</h3>
             <ul class="nav nav-justified">
-                <li<c:if test="${currentPage == 'home'}"> class="active"</c:if>><a href="${root}">Home</a></li>
+                <li<c:if test="${currentPage == 'home'}"> class="active"</c:if>><a href="${root}/">Home</a></li>
                 <c:if test="${userLoggedIn}">
-                    <li<c:if test="${currentPage == 'sites'}"> class="active"</c:if>><a href="sites">My sites</a></li>
+                    <li<c:if test="${currentPage == 'sites'}"> class="active"</c:if>><a href="${root}/sites">My sites</a></li>
                 </c:if>
-                <li<c:if test="${currentPage == 'docs'}"> class="active"</c:if>><a href="docs">Docs</a></li>
-                <li<c:if test="${currentPage == 'about'}"> class="active"</c:if>><a href="about">About</a></li>
+                <li<c:if test="${currentPage == 'docs'}"> class="active"</c:if>><a href="${root}/docs">Docs</a></li>
+                <li<c:if test="${currentPage == 'about'}"> class="active"</c:if>><a href="${root}/about">About</a></li>
 
                 <c:if test="${!userLoggedIn}">
                     <li><a href="javascript:void(0);" id="personaSignin">Sign in</a></li>
                 </c:if>
                 <c:if test="${userLoggedIn}">
-                    <li><a href="logout">Logout</a></li>
+                    <li><a href="${root}/logout">Logout</a></li>
                 </c:if>
             </ul>
         </div>
