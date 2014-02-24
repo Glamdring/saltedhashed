@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,6 +35,14 @@ public class SiteController {
 
     @Inject
     private ServletContext servletContext;
+
+    @Value("${base.url}")
+    private String baseUrl;
+
+    @ModelAttribute("baseUrl")
+    public String getBaseUrl() {
+        return baseUrl;
+    }
 
     @RequestMapping("/")
     public String index(Model model) {
@@ -76,7 +86,7 @@ public class SiteController {
         // if this is a new site, immediately run the verification process
         if (existing == null) {
             site.setCreatedTimestamp(new DateTime().getMillis());
-            verifierJob.verifySite(verifierJob.generateTestPasswords(), site);
+            verifierJob.verifySite(verifierJob.generateTestPasswordRequests(), site);
         }
 
         return "redirect:/sites";

@@ -33,7 +33,7 @@
                         <td>${site.statuses.isEmpty() ? "N/A" : site.statuses.get(0).success ? '<span class"success">OK</span>' : site.statuses.get(0).message}</td>
                         <td>
                             <c:if test="${!site.statuses.isEmpty() and site.statuses.get(0).success}">
-                                <textarea rows="3" cols="40" style="font-size: 9px;"><a href="${baseUrl}/${root}/site/status?baseUrl=${site.baseUrl}"><img src="${baseUrl}/${staticRoot}/img/badge.png" style="border-style: none;"/></a></textarea>
+                                <textarea rows="3" cols="40" style="font-size: 9px;"><a href="${baseUrl}${root}/site/status?baseUrl=${site.baseUrl}"><img src="${baseUrl}/${staticRoot}/img/badge.png" style="border-style: none;"/></a></textarea>
                             </c:if>
                             <c:if test="${site.statuses.isEmpty() or !site.statuses.get(0).success}">
                                 Not availale if status is not "OK"

@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import com.google.common.base.Joiner;
 import com.saltedhashed.dao.PageableOperation;
 import com.saltedhashed.dao.SiteDao;
+import com.saltedhashed.model.PasswordRequest;
 import com.saltedhashed.model.PasswordResponse;
 import com.saltedhashed.model.Site;
 import com.saltedhashed.model.SiteStatus;
@@ -40,39 +41,45 @@ public class SiteVerifierJob {
     @Scheduled(fixedDelay=DateTimeConstants.MILLIS_PER_DAY)
     public void run() {
 
-        final List<String> passwords = generateTestPasswords();
+        final List<PasswordRequest> requests = generateTestPasswordRequests();
 
         dao.performBatched(200, new PageableOperation<Site>() {
             @Override
             public void execute() {
                 List<Site> sites = getData();
                 for (Site site : sites) {
-                    verifySite(passwords, site);
+                    try {
+                        verifySite(requests, site);
+                    } catch (Exception ex) {
+                        logger.error("Problem verifying site " + site.getBaseUrl(), ex);
+                    }
                 }
             }
         });
     }
 
-    public List<String> generateTestPasswords() {
-        final List<String> passwords = new ArrayList<>(3);
+    public List<PasswordRequest> generateTestPasswordRequests() {
+        final List<PasswordRequest> requests = new ArrayList<>(3);
         for (int i = 0; i < 3; i ++) {
-            passwords.add(PasswordUtils.getRandomPassword());
+            PasswordRequest request = new PasswordRequest();
+            request.setPassword(PasswordUtils.getRandomPassword());
+            requests.add(request);
         }
-        return passwords;
+        return requests;
     }
 
-    public void verifySite(final List<String> passwords, Site site) {
+    public void verifySite(final List<PasswordRequest> requests, Site site) {
         SiteStatus status = new SiteStatus();
         status.setHttpCode(200);
         Set<String> messages = new HashSet<>();
         boolean success = true;
-        for (String password : passwords) {
+        for (PasswordRequest request : requests) {
             try {
                 PasswordResponse response =
-                        restTemplate.postForObject(site.getBaseUrl() + site.getEndpointPath(), "{password:\"" + password +"\"}", PasswordResponse.class);
-                boolean verificationResult = verifier.verify(password, response);
+                        restTemplate.postForObject(site.getBaseUrl() + site.getEndpointPath(), request, PasswordResponse.class);
+                boolean verificationResult = verifier.verify(request.getPassword(), response);
                 if (!verificationResult) {
-                    messages.add("Incorrect hash for password " + password + ", using algorithm " + response.getAlgorithm() + ".");
+                    messages.add("Incorrect hash for password " + request.getPassword()+ ", using algorithm " + response.getAlgorithm() + ".");
                 }
                 success = success && verificationResult;
             } catch (HttpClientErrorException ex) {
@@ -82,7 +89,6 @@ public class SiteVerifierJob {
             } catch (RestClientException ex) {
                 success = false;
                 messages.add("REST exception: " + ex.getMessage());
-                logger.warn("Problem with site: " + site, ex);
             } catch (Exception ex) {
                 success = false;
                 messages.add("Unexpected problem.");

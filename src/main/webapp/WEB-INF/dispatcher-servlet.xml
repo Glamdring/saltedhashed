@@ -24,9 +24,6 @@
 
     <mvc:resources mapping="*.txt" location="/WEB-INF/jsp/txt/" />
 
-    <!-- setting all desired beans that are otherwise automaticaly defined by
-        mvc:annotation-driven -->
-
     <!-- Conversion -->
     <bean id="conversionService"
         class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
