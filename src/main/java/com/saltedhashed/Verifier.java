@@ -1,9 +1,5 @@
 package com.saltedhashed;
 
-import gnu.crypto.Registry;
-import gnu.crypto.jce.GnuCrypto;
-
-import java.security.Security;
 import java.util.Arrays;
 
 import javax.crypto.SecretKeyFactory;

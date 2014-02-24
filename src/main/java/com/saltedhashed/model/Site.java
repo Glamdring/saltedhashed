@@ -11,6 +11,7 @@ public class Site {
     private String endpointPath;
     private String owner;
     private List<SiteStatus> statuses = new ArrayList<>();
+    private long createdTimestamp;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -42,5 +43,13 @@ public class Site {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public long getCreatedTimestamp() {
+        return createdTimestamp;
+    }
+
+    public void setCreatedTimestamp(long createdTimestamp) {
+        this.createdTimestamp = createdTimestamp;
     }
 }

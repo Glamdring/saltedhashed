@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,6 +69,7 @@ public class SiteController {
         }
         // if this is a new site, immediately run the verification process
         if (existing == null) {
+            site.setCreatedTimestamp(new DateTime().getMillis());
             verifierJob.verifySite(verifierJob.generateTestPasswords(), site);
         }
 

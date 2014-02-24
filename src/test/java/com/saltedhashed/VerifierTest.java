@@ -1,7 +1,5 @@
 package com.saltedhashed;
 
-import gnu.crypto.Registry;
-
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
