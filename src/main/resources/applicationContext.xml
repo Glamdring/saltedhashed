@@ -35,10 +35,9 @@
     <task:annotation-driven scheduler="poolScheduler" />
 
 
-    <mongo:mongo host="${mongo.host}" port="${mongo.port}">
-        <mongo:options />
+    <mongo:mongo host="${mongo.host}" port="${mongo.port}" id="mongo">
     </mongo:mongo>
-    <mongo:db-factory id="mongoFactory" dbname="${mongo.database}" username="${mongo.username}"
+    <mongo:db-factory mongo-ref="mongo" id="mongoFactory" dbname="${mongo.database}" username="${mongo.username}"
         password="${mongo.password}" />
 
     <bean class="org.springframework.data.mongodb.core.MongoTemplate">
