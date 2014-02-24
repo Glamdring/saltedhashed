@@ -35,7 +35,10 @@ public class SiteController {
     private ServletContext servletContext;
 
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model) {
+        if (userContext.getUser() != null) {
+            model.addAttribute("sites", dao.getSitesForUser(userContext.getUser().getEmail()));
+        }
         return "index";
     }
     @RequestMapping("/docs")
@@ -67,14 +70,15 @@ public class SiteController {
         if (existing != null && !existing.getOwner().equals(userContext.getUser().getEmail())) {
             throw new IllegalStateException("Cannot edit site that is not owned by the user");
         }
+        site.setOwner(userContext.getUser().getEmail());
+        dao.save(site);
+
         // if this is a new site, immediately run the verification process
         if (existing == null) {
             site.setCreatedTimestamp(new DateTime().getMillis());
             verifierJob.verifySite(verifierJob.generateTestPasswords(), site);
         }
 
-        site.setOwner(userContext.getUser().getEmail());
-        dao.save(site);
         return "redirect:/sites";
     }
 

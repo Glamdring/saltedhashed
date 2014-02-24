@@ -4,8 +4,6 @@ import java.lang.reflect.Constructor;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.Security;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.SecretKeyFactorySpi;
@@ -35,6 +33,7 @@ public class PBKDF2Algorithms {
      * @return
      * @throws NoSuchAlgorithmException
      */
+    @SuppressWarnings("unchecked")
     public static SecretKeyFactory getSecretKeyFactory(String algorithm) throws NoSuchAlgorithmException {
         try {
             Class<SecretKeyFactorySpi> clazz = (Class<SecretKeyFactorySpi>) Class.forName((String) provider.get("SecretKeyFactory." + algorithm));

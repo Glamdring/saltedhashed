@@ -95,4 +95,12 @@ body {
 .failure {
     color: darkred;
 }
+.logo {
+    border-style: none;
+    float: left;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+label {
+    font-size: 10px;
 }

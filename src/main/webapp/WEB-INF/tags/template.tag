@@ -20,7 +20,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+<link rel="shortcut icon" href="${staticRoot}/img/favicon.png">
 
 <title>SaltedHahshed - prove that your sites store passwords securely</title>
 
@@ -84,7 +84,7 @@
     <div class="container">
 
         <div class="masthead" style="margin-bottom: 25px;">
-            <h3 class="text-muted">SaltedHashed</h3>
+            <a href="${root}"><img src="${staticRoot}/img/favicon.png" class="logo" /><h3 class="text-muted">SaltedHashed</h3></a>
             <ul class="nav nav-justified">
                 <li<c:if test="${currentPage == 'home'}"> class="active"</c:if>><a href="${root}/">Home</a></li>
                 <c:if test="${userLoggedIn}">
