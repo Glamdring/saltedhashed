@@ -2,7 +2,7 @@
             <div class="col-lg-12">
 
             <p>
-                <h2>Why do you need to use a secure algorithms when storing passwords?</h2>
+                <h2>Why do you need to use secure algorithms when storing passwords?</h2>
                 Standard hashing functions are not designed for storing passwords. If
                 an attacker gets your database, modern hardware allows for easy
                 brute-force attacks. And when you leak the password of your users and they
