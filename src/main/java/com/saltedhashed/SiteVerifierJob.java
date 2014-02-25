@@ -97,6 +97,7 @@ public class SiteVerifierJob {
         }
         status.setSuccess(success);
         status.setMessage(joiner.join(messages));
+        status.setTimestamp(System.currentTimeMillis());
         site.getStatuses().add(0, status);
         if (site.getStatuses().size() > 5) {
             site.getStatuses().remove(5);

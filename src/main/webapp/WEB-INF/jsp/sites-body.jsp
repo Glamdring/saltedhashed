@@ -23,6 +23,7 @@
                     <th style="width: 240px;">Badge code</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +40,7 @@
                                 Not availale if status is not "OK"
                             </c:if>
                         </td>
+                        <td><a href="${root}/site/verify?baseUrl=${site.baseUrl}">Verify now</a></td>
                         <td><a href="javascript:edit('${site.baseUrl}', '${site.endpointPath}');">Edit</a></td>
                         <td><a onclick="if (confirm('Are you sure you want to delete this site?')) {return true;} else {return false;}" href="${root}/site/delete?baseUrl=${site.baseUrl}">Delete</a></td>
                     </tr>

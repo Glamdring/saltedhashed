@@ -9,7 +9,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,7 +84,7 @@ public class SiteController {
 
         // if this is a new site, immediately run the verification process
         if (existing == null) {
-            site.setCreatedTimestamp(new DateTime().getMillis());
+            site.setCreatedTimestamp(System.currentTimeMillis());
             verifierJob.verifySite(verifierJob.generateTestPasswordRequests(), site);
         }
 
@@ -99,6 +98,16 @@ public class SiteController {
             throw new IllegalStateException("Cannot delete site that is not owned by the user");
         }
         dao.delete(site);
+        return "redirect:/sites";
+    }
+
+    @RequestMapping("/site/verify")
+    public String verify(@RequestParam String baseUrl) {
+        Site site = dao.find(baseUrl);
+        if (!site.getOwner().equals(userContext.getUser().getEmail())) {
+            throw new IllegalStateException("Cannot invoke verification on site that is not owned by the user");
+        }
+        verifierJob.verifySite(verifierJob.generateTestPasswordRequests(), site);
         return "redirect:/sites";
     }
 
