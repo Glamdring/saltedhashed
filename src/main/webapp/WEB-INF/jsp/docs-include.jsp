@@ -1,17 +1,24 @@
     <div class="row">
             <div class="col-lg-12">
 
-            <p>
-                <h2>Why do you need to use secure algorithms when storing passwords?</h2>
-                Standard hashing functions are not designed for storing passwords. If
-                an attacker gets your database, modern hardware allows for easy
-                brute-force attacks. And when you leak the password of your users and they
-                use the same password on other sites, all their accounts are
-                compromised. <a href="http://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/6415#6415">See
-                        here for more details</a>.
-            </p>
+        <p>
 
-            <p>
+        <h2>Why do you need to use secure algorithms when storing
+            passwords?</h2>
+            Standard hashing functions are not designed for storing passwords. If
+            an attacker gets your database, modern hardware allows for easy
+            brute-force attacks. And when you leak the password of your users and
+            they use the same password on other sites, all their accounts are
+            compromised.
+            <a
+                href="http://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/6415#6415">See
+                here for more details</a>. And <a
+                href="http://security.blogoverflow.com/2011/11/why-passwords-should-be-hashed/">read</a>
+            this post explaining why you need to hash passwords in the first
+            place.
+        </p>
+
+        <p>
                 <h2>How?</h2>
                 Below is are the steps needed for verifying your site's password storage mechanism:
                 <ol>
