@@ -15,6 +15,8 @@ import com.saltedhashed.model.PasswordResponse;
 
 public class Verifier {
 
+    private static final int MAX_PKBDF2_ITERATIONS = 1000000;
+
     static {
         PBKDF2Algorithms.initialize();
     }
@@ -29,6 +31,9 @@ public class Verifier {
         }
 
         if (response.getAlgorithm() == Algorithm.PBKDF2) {
+            if (response.getAlgorithmDetails().getIterations() > MAX_PKBDF2_ITERATIONS) {
+                throw new IllegalArgumentException("Iterations should not exceed " + MAX_PKBDF2_ITERATIONS);
+            }
             byte[] hash = Base64.decodeBase64(response.getHash());
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), response.getSalt().getBytes(), response
                     .getAlgorithmDetails().getIterations(), response.getAlgorithmDetails().getKeySize());
